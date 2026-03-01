@@ -12,3 +12,8 @@ cifar-10-batches-py/
 
 # VS Code
 .vscode/
+
+.DS_Store
+*.zip
+submission/
+AejinLee_submission/
