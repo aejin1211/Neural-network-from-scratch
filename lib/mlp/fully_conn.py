@@ -74,7 +74,10 @@ class TinyNet(Module):
         """Some comments"""
         self.net = sequential(
             #### TODO: Add the layers ####
-            ...
+            flatten(name="flat"),
+            fc(3072, 256, 5e-2, name="fc1"),
+            leaky_relu(name="relu1"),
+            fc(256, 10, 5e-2, name="fc2"),
             ############# END ############
         )
 

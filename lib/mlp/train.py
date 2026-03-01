@@ -1,4 +1,5 @@
 from __future__ import absolute_import, division, print_function
+from pyexpat import model
 
 from lib.mlp.layer_utils import *
 from lib.optim import *
@@ -160,7 +161,12 @@ def train_net(
             # pass to the network, and make a step for the optimizer.                   #
             # Store the loss to loss_hist                                               #
             #############################################################################
-            pass
+            output = model.forward(data_batch, is_training=True)
+            loss = loss_func.forward(output, labels_batch)
+            loss_hist.append(loss)
+            dLoss = loss_func.backward()
+            model.backward(dLoss)
+            optimizer.step()
             #############################################################################
             #                             END OF YOUR CODE                              #
             #############################################################################
@@ -181,7 +187,8 @@ def train_net(
         # compute_acc method, store the results to train_acc and val_acc,           #
         # respectively                                                              #
         #############################################################################
-        pass
+        train_acc = compute_acc(model, data_train, labels_train, num_samples=1000)
+        val_acc = compute_acc(model, data_val, labels_val)  
         #############################################################################
         #                             END OF YOUR CODE                              #
         #############################################################################
@@ -194,7 +201,10 @@ def train_net(
             # TODO: Save the optimal parameters to opt_params variable by name using    #
             # model.net.gather_params method                                            #
             #############################################################################
-            pass
+            opt_val_acc = val_acc
+            opt_params = {}
+            for name, param in model.net.params.items():
+                opt_params[name] = param.copy()
             #############################################################################
             #                             END OF YOUR CODE                              #
             #############################################################################
