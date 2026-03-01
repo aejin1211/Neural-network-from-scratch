@@ -97,7 +97,8 @@ class flatten(object):
         # You need to reshape (flatten) the input features.                         #
         # Store the results in the variable self.meta provided above.               #
         #############################################################################
-        pass
+        N = feat.shape[0]
+        output = feat.reshape(N, -1)
         #############################################################################
         #                             END OF YOUR CODE                              #
         #############################################################################
@@ -114,7 +115,7 @@ class flatten(object):
         # You need to reshape (flatten) the input gradients and return.             #
         # Store the results in the variable dfeat provided above.                   #
         #############################################################################
-        pass
+        dfeat = dprev.reshape(feat.shape)
         #############################################################################
         #                             END OF YOUR CODE                              #
         #############################################################################
@@ -154,7 +155,9 @@ class fc(object):
         # TODO: Implement the forward pass of a single fully connected layer.       #
         # Store the results in the variable output provided above.                  #
         #############################################################################
-        pass
+        W = self.params[self.w_name]
+        b = self.params[self.b_name]
+        output = feat.dot(W) + b
         #############################################################################
         #                             END OF YOUR CODE                              #
         #############################################################################
@@ -178,7 +181,14 @@ class fc(object):
         # corresponding name.                                                       #
         # Store the output gradients in the variable dfeat provided above.          #
         #############################################################################
-        pass
+        W = self.params[self.w_name]
+
+        # gradient w.r.t input
+        dfeat = dprev.dot(W.T)
+
+        # gradient w.r.t weights and bias
+        self.grads[self.w_name] = feat.T.dot(dprev)
+        self.grads[self.b_name] = np.sum(dprev, axis=0)
         #############################################################################
         #                             END OF YOUR CODE                              #
         #############################################################################
