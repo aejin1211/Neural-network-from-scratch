@@ -45,7 +45,10 @@ class SmallFullyConnectedNetwork(Module):
     def __init__(self, keep_prob=0, dtype=np.float32, seed=None):
         self.net = sequential(
             #### TODO: Add the layers ####
-            ...
+            flatten(name="flat"),
+            fc(6, 35, 2e-2, name="fc1"),
+            leaky_relu(name="relu1"),
+            fc(35, 8, 2e-2, name="fc2"),
             ############# END ############
         )
 
