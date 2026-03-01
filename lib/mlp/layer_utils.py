@@ -317,7 +317,7 @@ class dropout(object):
         # TODO: Implement the backward pass of Dropout                              #
         # Select gradients only from selected activations.                          #
         # Store the output gradients in the variable dfeat provided above.          #
-        #############################################################################
+        #######################################ip######################################
         # If no dropout was used
         if self.keep_prob == 0 or (not self.is_training):
             dfeat = dprev
